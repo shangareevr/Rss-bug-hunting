@@ -16,7 +16,7 @@ function addTask() {
     errorEl.hidden = false;
     return;
   } 
-  
+
   errorEl.hidden = true;
   tasks.push({ id: nextId++, text: text, done: false });
   input.value = "";
@@ -48,6 +48,7 @@ function updateCounter() {
 }
 
 function render() {
+  list.replaceChildren();
   const visible = getVisibleTasks();
   for (let i = 0; i <= visible.length; i++) {
     const task = visible[i];
