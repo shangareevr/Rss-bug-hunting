@@ -44,7 +44,8 @@ function getVisibleTasks() {
 }
 
 function updateCounter() {
-  counter.textContent = "Активных задач: " + tasks.length;
+  const activeCount = tasks.filter((task) => !task.done).length;
+  counter.textContent = "Активных задач: " + activeCount;
 }
 
 function render() {
@@ -52,25 +53,27 @@ function render() {
   const visible = getVisibleTasks();
   for (let i = 0; i <= visible.length; i++) {
     const task = visible[i];
-    const li = document.createElement("li");
-    li.className = "task";
-    if (task.done) {
-      li.classList.add("completed");
+    if (task) {
+      const li = document.createElement("li");
+      li.className = "task";
+      if (task.done) {
+        li.classList.add("completed");
+      }
+
+      const span = document.createElement("span");
+      span.className = "task__text";
+      span.textContent = task.text;
+      span.addEventListener("click", () => toggleTask(task.id));
+
+      const del = document.createElement("button");
+      del.className = "task__del";
+      del.textContent = "✕";
+      del.addEventListener("click", () => deleteTask(task.id));
+
+      li.appendChild(span);
+      li.appendChild(del);
+      list.appendChild(li);
     }
-
-    const span = document.createElement("span");
-    span.className = "task__text";
-    span.textContent = task.text;
-    span.addEventListener("click", () => toggleTask(task.id));
-
-    const del = document.createElement("button");
-    del.className = "task__del";
-    del.textContent = "✕";
-    del.addEventListener("click", () => deleteTask(task.id));
-
-    li.appendChild(span);
-    li.appendChild(del);
-    list.appendChild(li);
   }
   updateCounter();
 }
