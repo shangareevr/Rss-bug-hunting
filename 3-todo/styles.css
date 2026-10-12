@@ -96,6 +96,10 @@ body {
   border-bottom: 1px solid #e2e8f0;
 }
 
+.task.completed span {
+  text-decoration: line-through;
+}
+
 .task__text {
   flex: 1;
   cursor: pointer;
